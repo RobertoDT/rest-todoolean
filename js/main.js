@@ -14,12 +14,20 @@ $(document).ready(function(){
     }
   );
 
+  $(document).on("click", ".fa-trash-alt", function(){
+
+    var thisElement = $(this).parent();
+    var id = thisElement.attr("id");
+
+    deleteElement(thisElement, id);
+
+  });
 
 });
 
 //FUNZIONI
 
-//funzione che printa a schermo il contenuto della todolist
+//funzione che prita a schermo il contenuto della todolist
 function printList(lista){
   var source = $("#todo-list-template").html();
   var template = Handlebars.compile(source);
@@ -34,4 +42,20 @@ function printList(lista){
     var html = template(context);
     $("#todo-list").append(html);
   }
+}
+
+//funzione per eliminare l'elemento al click sull'icona cestino
+function deleteElement(thisElement, id){
+  $.ajax(
+    {
+      "url": "http://157.230.17.132:3020/todos/" + id,
+      "method": "DELETE",
+      "success": function (data) {
+        thisElement.remove();
+      },
+      "error": function (richiesta, stato, errori) {
+        alert("E' avvenuto un errore. " + errori);
+      }
+    }
+  );
 }
