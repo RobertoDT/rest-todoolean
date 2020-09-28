@@ -25,24 +25,25 @@ $(document).ready(function(){
   //create
   $(".add-button").click(function(){
     var valInput = $(".input").val();
-
-    $.ajax(
-      {
-        "url": "http://157.230.17.132:3020/todos",
-        "method": "POST",
-        //IMPORTANTE!!!!! sarò quello che scriveremo all'interno del server come chiave
-        "data": {
-          "text": valInput
-        },
-        "success": function (data) {
-          printElement(valInput, data);
-          valInput = $(".input").val("");
-        },
-        "error": function (richiesta, stato, errori) {
-          alert("E' avvenuto un errore. " + errori);
+    if(valInput != ""){
+      $.ajax(
+        {
+          "url": "http://157.230.17.132:3020/todos",
+          "method": "POST",
+          //IMPORTANTE!!!!! sarò quello che scriveremo all'interno del server come chiave
+          "data": {
+            "text": valInput
+          },
+          "success": function (data) {
+            printElement(valInput, data);
+            valInput = $(".input").val("");
+          },
+          "error": function (richiesta, stato, errori) {
+            alert("E' avvenuto un errore. " + errori);
+          }
         }
-      }
-    );
+      );
+    }
   });
 
   //update
@@ -50,23 +51,25 @@ $(document).ready(function(){
     var valModInput = $(this).siblings(".modified-input").val();
     var id = $(this).parent().attr("id");
     var elementToDelete = $(this).parent();
-
-    $.ajax(
-      {
-        "url": "http://157.230.17.132:3020/todos/" + id,
-        "method": "PATCH",
-        "data": {
-          "text": valModInput
-        },
-        "success": function (data) {
-          elementToDelete.remove();
-          printElement(valModInput, data)
-        },
-        "error": function (richiesta, stato, errori) {
-          alert("E' avvenuto un errore. " + errori);
+    
+    if(valModInput != ""){
+      $.ajax(
+        {
+          "url": "http://157.230.17.132:3020/todos/" + id,
+          "method": "PATCH",
+          "data": {
+            "text": valModInput
+          },
+          "success": function (data) {
+            elementToDelete.remove();
+            printElement(valModInput, data)
+          },
+          "error": function (richiesta, stato, errori) {
+            alert("E' avvenuto un errore. " + errori);
+          }
         }
-      }
-    );
+      );
+    }
   });
 
 });
