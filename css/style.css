@@ -1,0 +1,21 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body{
+  padding: 50px;
+}
+
+#todo-list{
+  list-style: none;
+  margin-top: 20px;
+}
+#todo-list li {
+  margin-bottom: 20px;
+}
+
+.fa-trash-alt{
+  margin-left: 10px;
+  cursor: pointer;
+}
