@@ -19,3 +19,7 @@ body{
   margin-left: 10px;
   cursor: pointer;
 }
+
+.modified-input{
+  margin-left: 40px;
+}

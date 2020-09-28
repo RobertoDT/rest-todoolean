@@ -19,7 +19,11 @@
 
   <!-- template -->
   <script id="todo-list-template" type="text/x-handlebars-template">
-    <li id="{{id}}">{{text}} <i class="fas fa-trash-alt"></i></li>
+    <li id="{{id}}">{{text}}
+      <i class="fas fa-trash-alt"></i>
+      <input class="modified-input" type="text" name="" placeholder="Inserisci modifica">
+      <button class="modified-button" type="button" name="button">Modifica</button>
+    </li>
   </script>
   <!-- /template -->
 

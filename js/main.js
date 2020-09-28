@@ -47,6 +47,40 @@ $(document).ready(function(){
     );
   });
 
+  //update
+  $(document).on("click", ".modified-button", function(){
+    var valModInput = $(this).siblings(".modified-input").val();
+    var id = $(this).parent().attr("id");
+    var elementToDelete = $(this).parent();
+
+    $.ajax(
+      {
+        "url": "http://157.230.17.132:3020/todos/" + id,
+        "method": "PATCH",
+        "data": {
+          "text": valModInput
+        },
+        "success": function (data) {
+          var source = $("#todo-list-template").html();
+          var template = Handlebars.compile(source);
+
+          var context = {
+            "id": id,
+            "text": valModInput
+          };
+
+          elementToDelete.remove();
+
+          var html = template(context);
+          $("#todo-list").append(html);
+        },
+        "error": function (richiesta, stato, errori) {
+          alert("E' avvenuto un errore. " + errori);
+        }
+      }
+    );
+  });
+
 });
 
 //FUNZIONI
@@ -84,6 +118,7 @@ function deleteElement(thisElement, id){
   );
 }
 
+//funzione che stampa a schermo il singolo elemento appena creato
 function printElement(text, data){
   var source = $("#todo-list-template").html();
   var template = Handlebars.compile(source);
@@ -92,7 +127,7 @@ function printElement(text, data){
     "id": data.id,
     "text": text
   }
-  console.log(context);
+
   var html = template(context);
   $("#todo-list").append(html);
 }
