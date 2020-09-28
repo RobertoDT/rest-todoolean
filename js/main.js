@@ -1,6 +1,5 @@
 //CRUD
 $(document).ready(function(){
-
   //read
   $.ajax(
     {
@@ -17,7 +16,6 @@ $(document).ready(function(){
 
   //al click sul cestino invoco la funzione per eliminare l'elemento
   $(document).on("click", ".fa-trash-alt", function(){
-
     var thisElement = $(this).parent();
     var id = thisElement.attr("id");
     //delete
@@ -61,18 +59,8 @@ $(document).ready(function(){
           "text": valModInput
         },
         "success": function (data) {
-          var source = $("#todo-list-template").html();
-          var template = Handlebars.compile(source);
-
-          var context = {
-            "id": id,
-            "text": valModInput
-          };
-
           elementToDelete.remove();
-
-          var html = template(context);
-          $("#todo-list").append(html);
+          printElement(valModInput, data)
         },
         "error": function (richiesta, stato, errori) {
           alert("E' avvenuto un errore. " + errori);
